@@ -6,8 +6,23 @@ import ImgContainer from"./ImgContainer";
 import axios from "axios"
 
 
-const Container = styled.div``;
-const Header = styled.div``;
+const Container = styled.div`
+display: flex;
+flex-direction:column;
+align-items:center;
+width : 100vw;
+height : 100vh;
+
+`;
+
+const Header = styled.div`
+width:100%;
+height: 25%;
+display:flex;
+justify-content:center;
+align-items:center;
+
+`;
 
 
 class MainPage extends React.Component {
@@ -37,20 +52,18 @@ class MainPage extends React.Component {
 
      _handleSubmit =  async event => {
         event.preventDefault();
-
         const {searchTerm} = this.state;
-
         const {data : {data : searchImgs}} = await this._getApi(searchTerm);
-
         this.setState({searchImgs});
-
         this.setState({searchTerm:""});
-
      }
 
+    
 
     render(){
         const {searchTerm, searchImgs} = this.state;
+
+        console.log(searchImgs);
 
         return (
     
@@ -60,7 +73,7 @@ class MainPage extends React.Component {
                 </Header>
                 <SearchInput searchTerm={searchTerm} _updateTerm={this._updateTerm} _handleSubmit={this._handleSubmit}/>
                 <Section>
-                    {(searchImgs && searchImgs.map(img => (<ImgContainer key= {img.id} imgUrl={img.images.original.url}/>)))}
+                    {(searchImgs && searchImgs.map(img => (<ImgContainer key= {img.id} img={img} />)))}
                 </Section>
             </Container>
     
